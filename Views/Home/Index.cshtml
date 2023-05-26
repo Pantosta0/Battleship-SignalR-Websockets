@@ -1,32 +1,99 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Online Match";
 }
 
-    <div class="container">
-        <div class="row p-1">
-            <div class="col-1">User</div>
-            <div class="col-5"><input type="text" id="userInput" /></div>
-        </div>
-        <div class="row p-1">
-        <div class="col-1">Coordenadas<br></div>
-            <div class="col-5"><input type="text" class="w-100" id="x" /></div>
-            <div class="col-5"><input type="text" class="w-100" id="y" /></div>
-        </div>
-        <div class="row p-1">
-            <div class="col-6 text-end">
-                <input type="button" id="sendButton" value="Atacar" />
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .board-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            gap: 2px;
+            width: 300px;
+            height: 300px;
+        }
+
+        .cell {
+            background-color: #ddd;
+            border: 1px solid #888;
+            position: relative;
+        }
+
+        .ship {
+            background-color: #555;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ship-1x5 {
+            width: calc((300px - 12px) / 10 * 1);
+            height: calc((300px - 12px) / 10 * 5);
+        }
+
+        .ship-4x1 {
+            width: calc((300px - 12px) / 10 * 4);
+            height: calc((300px - 12px) / 10 * 1);
+        }
+
+        .ship-3x1 {
+            width: calc((300px - 12px) / 10 * 3);
+            height: calc((300px - 12px) / 10 * 1);
+        }
+
+        .ship-1x3 {
+            width: calc((300px - 12px) / 10 * 1);
+            height: calc((300px - 12px) / 10 * 3);
+        }
+
+        .ship-1x2 {
+            width: calc((300px - 12px) / 10 * 1);
+            height: calc((300px - 12px) / 10 * 2);
+        }
+    </style>
+</head>
+<body>
+    <div class="board-container">
+        <div>
+            <h2>Tablero del primer jugador</h2>
+            <div class="board">
+                @for (int i = 0; i < 100; i++)
+                {
+                    string cellId = $"player1-cell{i}";
+                    <div class="cell drop-target" id="@cellId"></div>
+                }
             </div>
         </div>
-        <div class="row p-1">
-            <div class="col-6">
-                <hr />
-            </div>
-        </div>
-        <div class="row p-1">
-            <div class="col-6">
-                <ul id="messagesList"></ul>
+
+        <div>
+            <h2>Tablero del segundo jugador</h2>
+            <div class="board">
+                @for (int i = 0; i < 100; i++)
+                {
+                    string cellId = $"player2-cell{i}";
+                    <div class="cell" id="@cellId"></div>
+                }
             </div>
         </div>
     </div>
+
+    <div>
+        <h2>Barcos</h2>
+        <div class="ship ship-1x5" draggable="true"></div> <!-- 1x5 Ship -->
+        <div class="ship ship-4x1" draggable="true"></div> <!-- 4x1 Ship -->
+        <div class="ship ship-3x1" draggable="true"></div> <!-- 3x1 Ship -->
+        <div class="ship ship-1x3" draggable="true"></div> <!-- 1x3 Ship -->
+        <div class="ship ship-1x2" draggable="true"></div> <!-- 1x2 Ship -->
+    </div>
+</body>
+</html>
+
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/game.js"></script>

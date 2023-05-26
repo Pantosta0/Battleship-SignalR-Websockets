@@ -20,9 +20,9 @@ namespace Battleship_SignalR_Websockets.Hubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await base.OnDisconnectedAsync(exception);
+            
             Console.WriteLine($"Client disconnected: {Context.ConnectionId}");
 
-            // Remove the player from the game if they were connected
             if (playerConnections.ContainsKey(Context.ConnectionId))
             {
                 string playerId = playerConnections[Context.ConnectionId];
