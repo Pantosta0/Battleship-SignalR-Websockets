@@ -26,6 +26,10 @@
             position: relative;
         }
 
+        .clicked-cell {
+            background-color: red;
+        }
+
         .ship {
             background-color: #555;
             margin-bottom: 5px;
@@ -78,7 +82,7 @@
                 @for (int i = 0; i < 100; i++)
                 {
                     string cellId = $"player2-cell{i}";
-                    <div class="cell" id="@cellId"></div>
+                    <div class="cell second-player-cell" id="@cellId"></div>
                 }
             </div>
         </div>
